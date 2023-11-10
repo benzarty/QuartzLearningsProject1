@@ -5,11 +5,13 @@ import com.model.TriggerInfo;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.AllArgsConstructor;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
+import org.quartz.*;
+import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -66,5 +68,17 @@ public class MainSchedular {
         }
     }
 
+    public  List<JobDetail> getAllJobDetails(){
+        List<JobDetail> jobDetailList = new ArrayList<>();
+        try {
+            Set<JobKey> jobKeys = scheduler.getJobKeys(GroupMatcher.anyGroup());
+            for(JobKey jobKey:jobKeys){
+               jobDetailList.add(scheduler.getJobDetail(jobKey));
+            }
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+        return jobDetailList;
+    }
 
 }

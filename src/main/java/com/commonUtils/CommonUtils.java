@@ -14,15 +14,15 @@ public class CommonUtils {
         jobData.put(className.getSimpleName(),info);
         return JobBuilder.newJob(className)
                 .withIdentity(className.getSimpleName(),"grp1")
-                .storeDurably(true)
-                .setJobData(jobData)
+                .storeDurably(false)
                 .requestRecovery(false)
+                .setJobData(jobData)
                 .build();
     }
     public JobDetail getJobDetail(Class className){
         return JobBuilder.newJob(className)
                 .withIdentity(className.getSimpleName(),"grp1")
-                .storeDurably(true)
+                .storeDurably(false)
                 .build();
     }
     public Trigger getTriggerInfoOfJob(Class className, TriggerInfo info){
@@ -53,7 +53,7 @@ public class CommonUtils {
                 .newTrigger()
                 .startAt(new Date(System.currentTimeMillis()+info.getInitialOffSet()))
                 .withSchedule(builder)
-                .withPriority(5)
+                .withPriority(50)
                 .build();
     }
 
