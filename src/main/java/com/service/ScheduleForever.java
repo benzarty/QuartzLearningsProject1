@@ -20,7 +20,7 @@ public class ScheduleForever {
 
     public void init(){
 
-    TriggerInfo info = commonUtils.getTriggerInfoObj(20,
+    TriggerInfo info = commonUtils.getTriggerInfoObj(200,
             false,1500L,1000L,"info");
     schedular.scheduleJobWithPriority(SecondJob.class,info);
 

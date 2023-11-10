@@ -81,4 +81,15 @@ public class MainSchedular {
         return jobDetailList;
     }
 
+    public JobDetail getSpecificJobDetail(String name,String groupName){
+        JobDetail jobDetail =null;
+        try {
+            JobKey jobKey = new JobKey(name,groupName);
+            jobDetail = scheduler.getJobDetail(jobKey);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+        return jobDetail;
+    }
+
 }

@@ -16,7 +16,7 @@ public class FirstJobRun {
 
     @PostConstruct
     public void init(){
-        TriggerInfo info = commonUtils.getTriggerInfoObj(20,
+        TriggerInfo info = commonUtils.getTriggerInfoObj(200,
                 false,1000L,1000L,"info");
         schedular.scheduleJob(FirstJob.class,info);
     }

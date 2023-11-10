@@ -27,4 +27,10 @@ public class QuartzController {
       return   mainSchedular.getAllJobDetails();
     }
 
+    @GetMapping("/getSpecificJob/{groupName}/{jobName}")
+    public JobDetail getJobDetail(@PathVariable("groupName") String groupName,
+                             @PathVariable("jobName") String jobName){
+        return  mainSchedular.getSpecificJobDetail(jobName, groupName);
+
+    }
 }
