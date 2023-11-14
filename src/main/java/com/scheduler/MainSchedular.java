@@ -59,6 +59,7 @@ public class MainSchedular {
         }
     }
 
+
     @PreDestroy
     public void closeScheuler(){
         try {
@@ -91,5 +92,59 @@ public class MainSchedular {
         }
         return jobDetail;
     }
+
+    public void pauseAll(){
+        try {
+            scheduler.pauseAll();
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void pauseSpecificJob(String groupName,String jobName){
+        try {
+            JobKey jobKey = new JobKey(jobName,groupName);
+            scheduler.pauseJob(jobKey);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void resumeAll(){
+
+        try {
+            scheduler.resumeAll();
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void resumeSpecificJob(String groupName,String jobName){
+        try {
+            JobKey jobKey = new JobKey(jobName,groupName);
+            scheduler.resumeJob(jobKey);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean deleteJob(String jobName,String groupName){
+        JobKey jobkey = new JobKey(jobName,groupName);
+        try {
+          return  scheduler.deleteJob(jobkey);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean deleteAllJobs(){
+        try {
+            Set<JobKey> jobKeys = scheduler.getJobKeys(GroupMatcher.anyGroup());
+            List<JobKey> jobKeysList = new ArrayList<>(jobKeys);
+           return scheduler.deleteJobs(jobKeysList);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
 }
