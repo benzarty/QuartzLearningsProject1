@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Service
 public class CommonUtils {
-
+//build job details
     public JobDetail getJobDetail(Class className, TriggerInfo info){
         JobDataMap jobData = new JobDataMap();
         jobData.put(className.getSimpleName(),info);
@@ -29,6 +29,8 @@ public class CommonUtils {
       SimpleScheduleBuilder builder = SimpleScheduleBuilder
               .simpleSchedule()
               .withIntervalInMilliseconds(info.getTimeInterval());
+
+
       if(info.isRunForever()){
           builder.repeatForever();
       }else{
